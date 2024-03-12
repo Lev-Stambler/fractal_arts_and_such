@@ -45,8 +45,8 @@ def add_border_to_svg(input_filename: str, output_filename: str, padding: int = 
     original_height = int(root.attrib['height'].replace('px', ''))
 
     start_offset_height = 320
-    start_offset_width = 130
-    offset_width = 130
+    start_offset_width = 260
+    offset_width = 550
     offset_height = 0
     # Calculate new width and height with padding
     new_width = original_width +  2* padding + offset_width + start_offset_width
@@ -55,6 +55,8 @@ def add_border_to_svg(input_filename: str, output_filename: str, padding: int = 
     # Update root SVG's width and height
     root.attrib['width'] = f"{new_width}px"
     root.attrib['height'] = f"{new_height}px"
+
+    corner_radius = 100
 
     # Create the new border rectangle
     # Note: SVG origin (0,0) is at the top-left, adjust 'x' and 'y' to move the rectangle into position
@@ -65,7 +67,9 @@ def add_border_to_svg(input_filename: str, output_filename: str, padding: int = 
         'height': str(original_height + offset_height),
         'fill': 'none',
         'stroke': 'red',
-        'stroke-width': '1'
+        'stroke-width': '1',
+        'rx': f'{corner_radius}',
+        'ry': f'{corner_radius}',
     })
 
     # Insert the new border at the beginning of the SVG (so it appears behind existing graphics)
@@ -99,5 +103,5 @@ def gen_og_pattern():
 def gen_drawing_fix():
   add_border_to_svg('dragon_turtle.svg', 'dragon_turtle_out.svg')
 
-gen_og_pattern()
+# gen_og_pattern()
 gen_drawing_fix()
